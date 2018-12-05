@@ -25,6 +25,7 @@ this device decode from 0 to 255 with loop(default).
     ENC_CMD_ACCEL (0x02)       // 1:CountUpSpeedThreshold
 
 [sample source to use]
+
     // I2C Master for Tiny85RotaryEncoder
     #include <Wire.h>
     #include "Tiny85RotaryEncDef.h"
