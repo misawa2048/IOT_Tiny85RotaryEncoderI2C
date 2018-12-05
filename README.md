@@ -5,17 +5,18 @@ default I2C Address is 0x38.
 this device decode from 0 to 255 with loop(default). 
 
 [How to use]  
-1. build this source and write to Tiny85. // Board:Attiny Core
-2. connect Tiny85 and Rotary encoder (EncA,B,Cmn and Btn below).
-3. connect Tiny85 and Your Arduino (SCL-SCL,SDA-SDA,Vcc-Vcc and EncCmn-Gnd).
-4. start connection with   Wire.begin();
+1. build this source and write to Tiny85. // Board:Attiny Core  
+2. connect Tiny85 and Rotary encoder (EncA,B,Cmn and Btn below).  
+3. connect Tiny85 and Your Arduino (SCL-SCL,SDA-SDA,Vcc-Vcc and EncCmn-Gnd).  
+4. start connection with   Wire.begin();  
+
 [PIN]  
-          ........
-       RST|1    8|Vcc
-      EncA|2    7|SCL
-      EncB|3    6|EncBtn
-    EncCmn|4    5|SDA
-          ........
+          ........  
+       RST|1    8|Vcc  
+      EncA|2    7|SCL  
+      EncB|3    6|EncBtn  
+    EncCmn|4    5|SDA  
+          ........  
 
 [Command]  
     COMMAND       ID           // bytes:Description  
