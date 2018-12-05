@@ -10,13 +10,16 @@ this device decode from 0 to 255 with loop(default).
 3. connect Tiny85 and Your Arduino (SCL-SCL,SDA-SDA,Vcc-Vcc and EncCmn-Gnd).
 4. start connection with   Wire.begin();
 [PIN] 
+
         --------
      RST|1    8|Vcc
     EncA|2    7|SCL
     EncB|3    6|EncBtn
     EncCmn|4    5|SDA
         --------
+        
 [Command]
+
     COMMAND       ID           // bytes:Description
     ENC_CMD_INIT (0x01)        // 1:Init/Reset
     ENC_REQ_GET_VAL_U8 (0x10)  // 1:GetRotValue
