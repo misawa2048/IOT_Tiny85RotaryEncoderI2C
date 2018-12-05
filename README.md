@@ -33,54 +33,54 @@ this device decode from 0 to 255 with loop(default).
 //  GND|4    5|SDA
 //     --------
 
-#include <Wire.h>
-#include "Tiny85RotaryEncDef.h"
+    #include <Wire.h>
+    #include "Tiny85RotaryEncDef.h"
 
-void setup() {
-  // put your setup code here, to run once:
-  Serial.begin(9600);
-  Wire.begin();
-  delay(100);
-  sendCmd(ENC_CMD_LOOP,0);
-  Serial.println("Loop Off");
-}
-
-  uint32_t oldCntV=0;
-  uint32_t oldCntB=0;
-void loop() {
-  // put your main code here, to run repeatedly:
-  uint32_t cntV = readReq(ENC_REQ_GET_VAL_INT32,0);
-  uint32_t cntB = readReq(ENC_REQ_GET_BTN,0);
-  uint32_t cntS = readReq(ENC_REQ_GET_SPD,0);
-  if((oldCntV!=cntV)||(oldCntB!=cntB)){
-    oldCntV=cntV;
-    oldCntB=cntB;
-    Serial.println("recv:"+String(cntV)+":"+String(cntB)+":"+String(cntS));
-  }
-  if(cntV==220){ // reset
-    sendCmd(ENC_CMD_INIT,0);
-  }
-  delay(1);
-}
-
-int32_t sendCmd(uint8_t cmdId, uint8_t param) {
-  Wire.beginTransmission(ENC_I2C_ADDR);
-  Wire.write(cmdId); // cmd
-  Wire.write(param); // data
-  Wire.endTransmission();
-}
-int32_t readReq(uint8_t reqId, uint8_t reqData) {
-  uni32 u; u.num = 0;
-  Wire.beginTransmission(ENC_I2C_ADDR);
-  Wire.write(reqId); // cmd
-  Wire.write(reqData); // data
-  Wire.endTransmission();
-  int dataCnt = getParamNum(reqId);
-  Wire.requestFrom(ENC_I2C_ADDR,dataCnt); // req dataCnt byte
-  for(int i=0; i < dataCnt; ++i){
-    if(Wire.available()){
-      u.parts[i] = Wire.read();
+    void setup() {
+    // put your setup code here, to run once:
+    Serial.begin(9600);
+    Wire.begin();
+    delay(100);
+    sendCmd(ENC_CMD_LOOP,0);
+    Serial.println("Loop Off");
     }
-  }
-  return u.num;
-}
+
+    uint32_t oldCntV=0;
+    uint32_t oldCntB=0;
+    void loop() {
+    // put your main code here, to run repeatedly:
+    uint32_t cntV = readReq(ENC_REQ_GET_VAL_INT32,0);
+    uint32_t cntB = readReq(ENC_REQ_GET_BTN,0);
+    uint32_t cntS = readReq(ENC_REQ_GET_SPD,0);
+    if((oldCntV!=cntV)||(oldCntB!=cntB)){
+        oldCntV=cntV;
+        oldCntB=cntB;
+        Serial.println("recv:"+String(cntV)+":"+String(cntB)+":"+String(cntS));
+    }
+    if(cntV==220){ // reset
+        sendCmd(ENC_CMD_INIT,0);
+    }
+    delay(1);
+    }
+
+    int32_t sendCmd(uint8_t cmdId, uint8_t param) {
+    Wire.beginTransmission(ENC_I2C_ADDR);
+    Wire.write(cmdId); // cmd
+    Wire.write(param); // data
+    Wire.endTransmission();
+    }
+    int32_t readReq(uint8_t reqId, uint8_t reqData) {
+    uni32 u; u.num = 0;
+    Wire.beginTransmission(ENC_I2C_ADDR);
+    Wire.write(reqId); // cmd
+    Wire.write(reqData); // data
+    Wire.endTransmission();
+    int dataCnt = getParamNum(reqId);
+    Wire.requestFrom(ENC_I2C_ADDR,dataCnt); // req dataCnt byte
+    for(int i=0; i < dataCnt; ++i){
+        if(Wire.available()){
+        u.parts[i] = Wire.read();
+        }
+    }
+    return u.num;
+    }
