@@ -4,31 +4,28 @@ build this source and burn to Tiny85, it worsk as I2C device.
 default I2C Address is 0x38.
 this device decode from 0 to 255 with loop(default). 
 
-[How to use]
+[How to use]  
 1. build this source and write to Tiny85. // Board:Attiny Core
 2. connect Tiny85 and Rotary encoder (EncA,B,Cmn and Btn below).
 3. connect Tiny85 and Your Arduino (SCL-SCL,SDA-SDA,Vcc-Vcc and EncCmn-Gnd).
 4. start connection with   Wire.begin();
-[PIN] 
-
-        --------
-     RST|1    8|Vcc
-    EncA|2    7|SCL
-    EncB|3    6|EncBtn
+[PIN]  
+          ........
+       RST|1    8|Vcc
+      EncA|2    7|SCL
+      EncB|3    6|EncBtn
     EncCmn|4    5|SDA
-        --------
-        
-[Command]
+          ........
 
-    COMMAND       ID           // bytes:Description
-    ENC_CMD_INIT (0x01)        // 1:Init/Reset
-    ENC_REQ_GET_VAL_U8 (0x10)  // 1:GetRotValue
-    ENC_REQ_GET_BTN (0x12)     // 1:GetBtn/Trg/Rel and flush
-    ENC_CMD_LOOP (0x03)        // 1:Loop ON/OFF
-    ENC_CMD_ACCEL (0x02)       // 1:CountUpSpeedThreshold
+[Command]  
+    COMMAND       ID           // bytes:Description  
+    ENC_CMD_INIT (0x01)        // 1:Init/Reset  
+    ENC_REQ_GET_VAL_U8 (0x10)  // 1:GetRotValue  
+    ENC_REQ_GET_BTN (0x12)     // 1:GetBtn/Trg/Rel and flush  
+    ENC_CMD_LOOP (0x03)        // 1:Loop ON/OFF  
+    ENC_CMD_ACCEL (0x02)       // 1:CountUpSpeedThreshold  
 
-[sample source to use]
-
+[sample source to use]  
     // I2C Master for Tiny85RotaryEncoder
     #include <Wire.h>
     #include "Tiny85RotaryEncDef.h"
