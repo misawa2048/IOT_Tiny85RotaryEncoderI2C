@@ -11,6 +11,7 @@
 #define ENC_CMD_INIT (0x01) // 1:Init
 #define ENC_CMD_ACCEL (0x02) // 1:ChangeSPeedUpRate
 #define ENC_CMD_LOOP (0x03) // 1:SetLoop
+#define ENC_CMD_INVERT (0x04) // 1:SetInvert
 #define ENC_REQ_GET_VAL_U8 (0x10) // 1:GetU8
 #define ENC_REQ_GET_VAL_INT32 (0x11) // 4:GetInt32
 #define ENC_REQ_GET_BTN (0x12) // 1:GetBtn/Trg/Rel and flush

@@ -6,6 +6,7 @@
 
 #define ENC_EPROM_ADDR_I2CADR (0)  // 1(reserved)
 #define ENC_EPROM_ADDR_IsLoop (1)  // 1
+#define ENC_EPROM_ADDR_IsInvert (2)  // 1
 #define ENC_EPROM_ADDR_EncVal (4)  // 4
 #define ENC_EPROM_ADDR_EncMin (8)  // 4
 #define ENC_EPROM_ADDR_EncMax (12) // 4
@@ -44,6 +45,7 @@ private:
   int32_t mEncMin = 0;
   int32_t mEncMax = 255;
   bool mIsLoop = false;
+  bool mIsInvert = false;
   uint32_t mSpeedAcc = 5;
   uint32_t mDeltaMillis=0;
   uint32_t mSpeedupMillis=3;
@@ -59,6 +61,7 @@ public:
   void SetEncMin(int32_t _min=0){ mEncMin = _min; }
   void SetEncMax(int32_t _max=255){ mEncMax = _max; }
   void SetLoop(bool _isLoop=true){ mIsLoop = _isLoop; }
+  void SetInvert(bool _isInvert=true){ mIsInvert = _isInvert; }
   
   Tyny85RotEnc(byte _enc0, byte _enc1, byte _btn){
     mPBEnc0 = _enc0;
@@ -72,18 +75,21 @@ public:
     mEncMin = _valMin;
     mEncMax = _valMax;
     mIsLoop = _isLoop;
+    mIsInvert = false;
     mDeltaSum = 0;
     mIsDirty = true;
     EEPROM_writeAnything(ENC_EPROM_ADDR_EncVal,_defVal); //4
     EEPROM_writeAnything(ENC_EPROM_ADDR_EncMin,_valMin); //4
     EEPROM_writeAnything(ENC_EPROM_ADDR_EncMax,_valMax); //4
     EEPROM_writeAnything(ENC_EPROM_ADDR_IsLoop,_isLoop); //1
+    EEPROM_writeAnything(ENC_EPROM_ADDR_IsInvert,mIsInvert); //1
   }
   void RestoreDefaultValue(){
     EEPROM_readAnything(ENC_EPROM_ADDR_EncVal,mEncVal); //4
     EEPROM_readAnything(ENC_EPROM_ADDR_EncMin,mEncMin); //4
     EEPROM_readAnything(ENC_EPROM_ADDR_EncMax,mEncMax); //4
     EEPROM_readAnything(ENC_EPROM_ADDR_IsLoop,mIsLoop); //1
+    EEPROM_writeAnything(ENC_EPROM_ADDR_IsInvert,mIsInvert); //1
     mEncOld = mEncVal;
     mDeltaSum = 0;
     mIsDirty = true;
@@ -146,9 +152,9 @@ public:
       int rotStateOld = ((portReadingOld & (1 << mPBEnc0))?1:0) | ((portReadingOld & (1 << mPBEnc1))?2:0);
       if((rotStateOld==0B11)&&(mChatterMillis < _deltaMillis)){
         if(rotState==0B01){
-          addVal = -1;
+          addVal = -1*(mIsInvert?-1:1);
         } else if(rotState==0B10){
-          addVal = 1;
+          addVal = 1*(mIsInvert?-1:1);
         }
         if(addVal!=0){
           if(mSpeedupMillis > _deltaMillis){
@@ -188,7 +194,7 @@ public:
 //  GND|4    5|SDA
 //     --------
 //---------------------------
-#include <Wire.h>
+  #include <Wire.h>
 #include "Tiny85RotaryEncDef.h"
 
 Tyny85RotEnc rotEnc = Tyny85RotEnc(ENC_ENC0,ENC_ENC1,ENC_BUTTON);
@@ -240,6 +246,7 @@ void receiveEvent(int howMany) {
     case ENC_CMD_INIT:   req_ENC_CMD_INIT();  break;
     case ENC_CMD_ACCEL:  req_ENC_CMD_ACCEL(v_params[0]);  break;
     case ENC_CMD_LOOP:   req_ENC_CMD_LOOP(v_params[0]);  break;
+    case ENC_CMD_INVERT: req_ENC_CMD_INVERT(v_params[0]);  break;
   }
 //  interrupts();
 }
@@ -276,6 +283,9 @@ void req_ENC_CMD_ACCEL(uint8_t spd){
 }
 void req_ENC_CMD_LOOP(uint8_t _isLoop){
   rotEnc.SetLoop(_isLoop);
+}
+void req_ENC_CMD_INVERT(uint8_t _isInvert){
+  rotEnc.SetInvert(_isInvert);
 }
 void req_ENC_REQ_GET_VAL_U8(){
     uint8_t data = (uint8_t)(rotEnc.GetValue()&0xff);
