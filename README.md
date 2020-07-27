@@ -6,8 +6,8 @@ this device will decode from 0 to 255 with loop(default).
 
 [How to use]  
 1. Build this source and write to Tiny85. // Board:Attiny Core  
-2. Connect Tiny85 and Rotary encoder (EncA,B,Common and Button below).  
-3. Connect Tiny85 and Your Arduino (SCL-SCL,SDA-SDA,Vcc-Vcc and EncCmn-Gnd).  
+2. Connect Tiny85 to Rotary encoder (EncA,B,Common and Button below).  
+3. Connect Tiny85 to Your Arduino (SCL-SCL,SDA-SDA,Vcc-Vcc and EncCmn-Gnd).  
 4. Start connection with Wire.begin();  
 
 [PIN]  
