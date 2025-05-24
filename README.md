@@ -80,4 +80,4 @@ this device will decode from 0 to 255 with loop(default).
     return u.num;
     }
 
-[!['Tiny85RotaryEncoderI2C'](https://www.youtube.com/shorts/7qZ76FR7A-M)](https://www.youtube.com/shorts/7qZ76FR7A-M)
+[!['Tiny85RotaryEncoderI2C'](https://i.ytimg.com/vi/7qZ76FR7A-M/hq720_2.jpg?sqp=-oaymwEoCJUDENAFSFryq4qpAxoIARUAAIhC0AEB2AEB4gEKCBgQAhgGOAFAAQ==&rs=AOn4CLB-40gI9-B9kqUF6h5eYOTnSKEWZA)](https://www.youtube.com/shorts/7qZ76FR7A-M)
