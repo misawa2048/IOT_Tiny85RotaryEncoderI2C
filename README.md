@@ -80,4 +80,4 @@ this device will decode from 0 to 255 with loop(default).
     return u.num;
     }
 
-[!['Tiny85RotaryEncoderI2C'](https://youtube.com/shorts/7qZ76FR7A-M?si=vGZGNpgxnCcZZ3BM)](['Youtube動画のURL'](https://youtube.com/shorts/7qZ76FR7A-M?si=vGZGNpgxnCcZZ3BM))
+[!['Tiny85RotaryEncoderI2C'](https://www.youtube.com/shorts/7qZ76FR7A-M)](https://www.youtube.com/shorts/7qZ76FR7A-M)
