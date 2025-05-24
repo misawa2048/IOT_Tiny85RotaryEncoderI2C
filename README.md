@@ -80,5 +80,4 @@ this device will decode from 0 to 255 with loop(default).
     return u.num;
     }
 
-    
-![I2C AT Tiny85](https://camo.qiitausercontent.com/bc7f5e0a156dea4b734dea37badd3774b7421d5d/68747470733a2f2f71696974612d696d6167652d73746f72652e73332e616d617a6f6e6177732e636f6d2f302f35393931312f65396633623033302d656661612d653039332d346436352d6536356265666466396637332e6a706567)
+[!['Tiny85RotaryEncoderI2C'](https://youtube.com/shorts/7qZ76FR7A-M?si=vGZGNpgxnCcZZ3BM)](['Youtube動画のURL'](https://youtube.com/shorts/7qZ76FR7A-M?si=vGZGNpgxnCcZZ3BM))
